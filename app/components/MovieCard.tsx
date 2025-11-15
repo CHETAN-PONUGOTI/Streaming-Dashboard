@@ -1,31 +1,23 @@
-import Link from 'next/link';
-import Image from 'next/image';
-import { Movie } from '@/types/movie';
+import Image from "next/image";
+import Link from "next/link";
+import { Movie } from "@/types/movie";
 
-
-interface MovieCardProps {
-  movie: Movie;
-}
-
-export default function MovieCard({ movie }: MovieCardProps) {
-
+export default function MovieCard({ movie }: { movie: Movie }) {
   return (
     <Link 
-      href={`/movie/${movie.id}`} 
+      href={`/movie/${movie.imdbID}`}
       className="block min-w-[150px] max-w-[180px] hover:scale-105 transition duration-300 ease-in-out transform shadow-lg rounded-lg overflow-hidden"
     >
-      <div className="relative w-full aspect-[2/3]"> 
+      <div className="relative w-full aspect-[2/3]">
         <Image
-          src={movie.poster_url || '/placeholder.svg'} // Use the full URL
-          alt={movie.title}
+          src={movie.Poster !== "N/A" ? movie.Poster : "/no-image.png"}
+          alt={movie.Title}
           fill
-          sizes="(max-width: 600px) 150px, 180px"
           className="object-cover"
         />
       </div>
-      <div className="absolute bottom-0 w-full p-2 bg-black bg-opacity-70 text-white text-xs text-center truncate">
-        {movie.title}
-      </div>
+      <p className="text-sm mt-2 text-center font-medium">{movie.Title}</p>
     </Link>
   );
 }
+
